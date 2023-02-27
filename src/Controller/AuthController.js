@@ -7,11 +7,12 @@ const AuthController = {
               const {username,email,password,address,work,profile_picture_path } = req.body;   
               try{
                         const salt = await bcrypt.genSalt();
-                        const hashPassword = await bcrypt.hash(password,salt); 
+                        const hashPassword = await bcrypt.hash(password,salt);  //use for encrybt password
                         const newUser = new User({
                                 username,
                                 email,
-                                password:hashPassword,
+                                password:hashPassword, 
+                                // password,
                                 address,
                                 work,
                                 profile_picture_path
@@ -66,6 +67,15 @@ const AuthController = {
                        }
                })
        },
+       checkAuth: async (req , res)=>{
+                const id = req.user._id;
+               try {
+                        const user = await User.findById(id);
+                        return res.status(200).json(user);
+               } catch (error) {
+                        return res.status(401).json({message : "Unauthenicaton "});
+               }
+       }        
 
 }
 module.exports = AuthController;

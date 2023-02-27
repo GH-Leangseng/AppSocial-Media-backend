@@ -10,6 +10,7 @@ const PostSchema = mongoose.Schema({
                 require :true
         },
         like:{
+        
                 type : Array,
                 default : []
         },

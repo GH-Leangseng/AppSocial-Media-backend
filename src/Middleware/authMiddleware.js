@@ -6,7 +6,7 @@ module.exports = function verifyToken ( req,res,next){
         if (token == null) return res.sendStatus(401)
         jwt.verify(token, process.env.JWT_KEY, (err, user) => {
                 if (err) return res.sendStatus(403)
-                req.user = user
+                req.user = user.data
                 next();
         })
 }

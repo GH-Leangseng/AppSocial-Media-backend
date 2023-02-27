@@ -3,10 +3,13 @@ const User = require('../Model/User')
 const PostController = {
         addPost: async ( req , res)=>{
                try {
-                        const { username, 
+                        const { 
+                                username, 
                                 profile_picture_path ,
-                                user_id, desrciption,  
-                                image_path 
+                                user_id,
+                                desrciption,  
+                                image_path ,
+                                
                         } = req.body
 
                         const newPost = new Post({
@@ -14,7 +17,8 @@ const PostController = {
                                 username,
                                 profile_picture_path,
                                 image_path,
-                                desrciption
+                                desrciption,
+                                
                         });
                         await newPost.save();
                         res.status(201).json({newPost,Message:"Create Success "});
@@ -49,7 +53,8 @@ const PostController = {
                                         user_id : post.user_id ,
                                         profile_picture_path : post.profile_picture_path,
                                         username : post.username,
-                                        like : post.like.length
+                                        like : post.like.length,
+                                        createdAt : post.createdAt,
                                 }
                                 formatPost.push(formated);
                        })
